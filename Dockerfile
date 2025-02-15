@@ -5,10 +5,10 @@ FROM openjdk:21-jdk-slim
 WORKDIR /app
 
 # Copy the jar file into the container
-COPY target/URL_Shortener-0.0.1-SNAPSHOT.jar /app/URL_Shortener.jar
+COPY target/RedisUrlShortener-0.0.1-SNAPSHOT.jar /app/RedisUrlShortener.jar
 
 # Expose the port the app runs on
 EXPOSE 8080
 
 # Run the application
-CMD ["java", "-jar", "URL_Shortener.jar"]
+CMD ["java", "-jar", "RedisUrlShortener.jar"]
