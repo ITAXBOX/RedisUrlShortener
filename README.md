@@ -1,10 +1,10 @@
-![URL Shortener Project](docs/Image/Home.png)
+![RedisUrlShortener Project](docs/Image/Home.png)
 
-# URL Shortener Project
+# RedisUrlShortener Project
 
 ## Overview
 
-The **URL Shortener** project is a simple and efficient web application built using Spring Boot, Redis, and Docker. It provides endpoints to:
+The **RedisUrlShortener** project is a simple and efficient web application built using Spring Boot, Redis, and Docker. It provides endpoints to:
 
 - Shorten URLs.
 - Resolve shortened URLs to their original form.
