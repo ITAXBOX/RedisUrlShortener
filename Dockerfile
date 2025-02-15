@@ -1,0 +1,14 @@
+# Use an official OpenJDK runtime as a parent image
+FROM openjdk:21-jdk-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the jar file into the container
+COPY target/URL_Shortener-0.0.1-SNAPSHOT.jar /app/URL_Shortener.jar
+
+# Expose the port the app runs on
+EXPOSE 8080
+
+# Run the application
+CMD ["java", "-jar", "URL_Shortener.jar"]
