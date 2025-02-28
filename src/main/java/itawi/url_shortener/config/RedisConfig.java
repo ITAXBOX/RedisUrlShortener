@@ -1,4 +1,4 @@
-package itawi.url_shortener.Configuration;
+package itawi.url_shortener.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

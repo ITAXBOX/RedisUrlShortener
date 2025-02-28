@@ -1,6 +1,6 @@
-package itawi.url_shortener.Service;
+package itawi.url_shortener.service;
 
-import itawi.url_shortener.Utils.ConversionUtils;
+import itawi.url_shortener.util.ConversionUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;

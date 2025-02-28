@@ -1,4 +1,4 @@
-package itawi.url_shortener.Configuration;
+package itawi.url_shortener.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;

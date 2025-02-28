@@ -1,4 +1,4 @@
-package itawi.url_shortener.DTO.Response;
+package itawi.url_shortener.dto.Response;
 
 public record ShortenResponse(
         String shortUrl,

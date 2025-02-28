@@ -1,6 +1,6 @@
-package itawi.url_shortener.Service;
+package itawi.url_shortener.service;
 
-import itawi.url_shortener.Utils.RegexConstants;
+import itawi.url_shortener.util.RegexConstants;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.InvalidUrlException;
 

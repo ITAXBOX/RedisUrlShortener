@@ -1,4 +1,4 @@
-package itawi.url_shortener.Aspect;
+package itawi.url_shortener.aspect;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

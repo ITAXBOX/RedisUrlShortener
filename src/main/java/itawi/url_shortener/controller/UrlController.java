@@ -1,9 +1,9 @@
-package itawi.url_shortener.Controller;
+package itawi.url_shortener.controller;
 
-import itawi.url_shortener.Aspect.RateLimit;
-import itawi.url_shortener.DTO.Request.ShortenRequest;
-import itawi.url_shortener.DTO.Response.ShortenResponse;
-import itawi.url_shortener.Service.UrlShortenerService;
+import itawi.url_shortener.aspect.RateLimit;
+import itawi.url_shortener.dto.Request.ShortenRequest;
+import itawi.url_shortener.dto.Response.ShortenResponse;
+import itawi.url_shortener.service.UrlShortenerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;

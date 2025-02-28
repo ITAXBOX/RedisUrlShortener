@@ -1,4 +1,4 @@
-package itawi.url_shortener.Utils;
+package itawi.url_shortener.util;
 
 public final class ConversionUtils {
 

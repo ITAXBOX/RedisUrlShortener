@@ -1,4 +1,4 @@
-package itawi.url_shortener.DTO.Request;
+package itawi.url_shortener.dto.Request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;

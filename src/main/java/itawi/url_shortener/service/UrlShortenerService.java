@@ -1,8 +1,8 @@
-package itawi.url_shortener.Service;
+package itawi.url_shortener.service;
 
-import itawi.url_shortener.DTO.Request.ShortenRequest;
-import itawi.url_shortener.DTO.Response.ShortenResponse;
-import itawi.url_shortener.Exception.UrlNotFoundException;
+import itawi.url_shortener.dto.Request.ShortenRequest;
+import itawi.url_shortener.dto.Response.ShortenResponse;
+import itawi.url_shortener.exception.UrlNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;

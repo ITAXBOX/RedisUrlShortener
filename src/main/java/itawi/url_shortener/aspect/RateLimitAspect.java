@@ -1,6 +1,6 @@
-package itawi.url_shortener.Aspect;
+package itawi.url_shortener.aspect;
 
-import itawi.url_shortener.Exception.RateLimitExceededException;
+import itawi.url_shortener.exception.RateLimitExceededException;
 import lombok.AllArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
