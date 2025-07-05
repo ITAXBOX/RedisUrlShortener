@@ -21,6 +21,7 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("/api/v1/urls")
 @RequiredArgsConstructor
 @Tag(name = "URL Shortener API", description = "Endpoints for URL shortening and resolution")
+@CrossOrigin(origins = "*")
 public class UrlController {
 
     private final UrlShortenerService urlService;
