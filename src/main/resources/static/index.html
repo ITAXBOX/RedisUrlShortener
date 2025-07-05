@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener - Quick & Secure</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-link"></i>
+                    <span>LinkShort</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Shorten URLs with Style</h1>
+                <p class="hero-subtitle">Transform long, complex URLs into short, shareable links with advanced analytics and custom options.</p>
+
+                <!-- URL Shortener Form -->
+                <div class="shortener-card">
+                    <form id="shortenForm" class="shortener-form">
+                        <div class="form-group">
+                            <div class="input-wrapper">
+                                <i class="fas fa-globe input-icon"></i>
+                                <input type="url" id="originalUrl" placeholder="Enter your long URL here..." required>
+                            </div>
+                        </div>
+
+                        <div class="advanced-options" id="advancedOptions">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="customAlias">Custom Alias (Optional)</label>
+                                    <input type="text" id="customAlias" placeholder="my-custom-link">
+                                </div>
+                                <div class="form-group">
+                                    <label for="expirationSeconds">Expiration (seconds)</label>
+                                    <input type="number" id="expirationSeconds" placeholder="3600" min="0">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" id="toggleAdvanced" class="btn-secondary">
+                                <i class="fas fa-cog"></i> Advanced Options
+                            </button>
+                            <button type="submit" class="btn-primary" id="shortenBtn">
+                                <i class="fas fa-compress-arrows-alt"></i>
+                                <span>Shorten URL</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Result Section -->
+                <div id="resultSection" class="result-section hidden">
+                    <div class="result-card">
+                        <div class="result-header">
+                            <h3><i class="fas fa-check-circle"></i> Success!</h3>
+                        </div>
+                        <div class="result-content">
+                            <div class="url-result">
+                                <label>Shortened URL:</label>
+                                <div class="url-display">
+                                    <input type="text" id="shortUrl" readonly>
+                                    <button id="copyBtn" class="copy-btn" title="Copy to clipboard">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="url-result">
+                                <label>Original URL:</label>
+                                <div class="url-display">
+                                    <input type="text" id="originalUrlResult" readonly>
+                                </div>
+                            </div>
+                            <div class="result-actions">
+                                <button id="viewStatsBtn" class="btn-secondary">
+                                    <i class="fas fa-chart-line"></i> View Analytics
+                                </button>
+                                <button id="shortenAnotherBtn" class="btn-primary">
+                                    <i class="fas fa-plus"></i> Shorten Another
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Section -->
+                <div id="statsSection" class="stats-section hidden">
+                    <div class="stats-card">
+                        <div class="stats-header">
+                            <h3><i class="fas fa-chart-bar"></i> URL Analytics</h3>
+                            <button id="closeStatsBtn" class="close-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="stats-content">
+                            <div class="stat-item">
+                                <div class="stat-icon">
+                                    <i class="fas fa-mouse-pointer"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="stat-label">Total Clicks</span>
+                                    <span class="stat-value" id="accessCount">0</span>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-icon">
+                                    <i class="fas fa-link"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="stat-label">Short URL</span>
+                                    <span class="stat-value" id="statsShortUrl">-</span>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-icon">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="stat-label">Original URL</span>
+                                    <span class="stat-value" id="statsOriginalUrl">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features">
+            <div class="features-content">
+                <h2>Why Choose Our URL Shortener?</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>Lightning Fast</h3>
+                        <p>Generate shortened URLs instantly with our optimized Redis-backed system.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Real-time Analytics</h3>
+                        <p>Track click counts and monitor your link performance with detailed statistics.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <h3>Custom Aliases</h3>
+                        <p>Create memorable, branded short links with custom aliases for better recognition.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Expiration Control</h3>
+                        <p>Set custom expiration times for your links to automatically expire when needed.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Rate Limited</h3>
+                        <p>Built-in rate limiting protects against abuse while ensuring reliable service.</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Developer Friendly</h3>
+                        <p>RESTful API with comprehensive documentation for easy integration.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 LinkShort. Built with Spring Boot & Redis.</p>
+                <div class="footer-links">
+                    <a href="/swagger-ui.html" target="_blank">API Documentation</a>
+                    <a href="https://github.com" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <span>Processing...</span>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>
