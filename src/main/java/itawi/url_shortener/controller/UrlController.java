@@ -3,6 +3,7 @@ package itawi.url_shortener.controller;
 import itawi.url_shortener.aspect.RateLimit;
 import itawi.url_shortener.dto.Request.ShortenRequest;
 import itawi.url_shortener.dto.Response.ShortenResponse;
+import itawi.url_shortener.dto.Response.UrlStatsResponse;
 import itawi.url_shortener.service.UrlShortenerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -53,17 +54,9 @@ public class UrlController {
     }
 
     @GetMapping("/{shortCode}/stats")
-    @Operation(summary = "Get URL statistics", description = "Retrieves statistics for a shortened URL.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "URL statistics retrieved successfully",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ShortenResponse.class))}),
-            @ApiResponse(responseCode = "404", description = "Short code not found")
-    })
-    public ResponseEntity<ShortenResponse> getStats(@Parameter(description = "The short code of the URL", required = true) @PathVariable String shortCode) {
-        String originalUrl = urlService.resolveUrl(shortCode);
-        Long accessCount = urlService.getAccessCount(shortCode);
-        String shortUrl = urlService.buildShortUrl(shortCode);
-        return ResponseEntity.ok(new ShortenResponse(shortUrl, originalUrl, accessCount));
+    @RateLimit
+    @Operation(summary = "Get URL statistics", description = "Get statistics for a shortened URL without incrementing access count.")
+    public ResponseEntity<UrlStatsResponse> getUrlStats(@PathVariable String shortCode) {
+        return ResponseEntity.ok(urlService.getUrlStats(shortCode));
     }
 }

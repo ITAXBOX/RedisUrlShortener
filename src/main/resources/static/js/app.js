@@ -36,6 +36,15 @@ class URLShortenerApp {
         this.statsShortUrlElement = document.getElementById('statsShortUrl');
         this.statsOriginalUrlElement = document.getElementById('statsOriginalUrl');
 
+        // Resolve elements
+        this.resolveForm = document.getElementById('resolveForm');
+        this.resolveInput = document.getElementById('resolveInput');
+        this.resolvedUrlInput = document.getElementById('resolvedUrl');
+        this.resolveBtn = document.getElementById('resolveBtn');
+        this.copyResolvedBtn = document.getElementById('copyResolvedBtn');
+        this.visitResolvedBtn = document.getElementById('visitResolvedBtn');
+        this.resolveResultSection = document.getElementById('resolveResultSection');
+
         // Utility elements
         this.loadingOverlay = document.getElementById('loadingOverlay');
         this.toastContainer = document.getElementById('toastContainer');
@@ -59,6 +68,15 @@ class URLShortenerApp {
 
         // Shorten another button
         this.shortenAnotherBtn.addEventListener('click', () => this.resetForm());
+
+        // Resolve form submission
+        this.resolveForm.addEventListener('submit', (e) => this.handleResolveUrl(e));
+
+        // Copy resolved URL button
+        this.copyResolvedBtn.addEventListener('click', () => this.copyResolvedToClipboard());
+
+        // Visit resolved URL button
+        this.visitResolvedBtn.addEventListener('click', () => this.visitResolvedUrl());
 
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -152,6 +170,37 @@ class URLShortenerApp {
         }
     }
 
+    async handleResolveUrl(event) {
+        event.preventDefault();
+        const input = this.resolveInput.value.trim();
+        if (!input) {
+            this.showToast('Please enter a short code or URL to resolve', 'error');
+            return;
+        }
+
+        const shortCode = input.includes('/') ? input.split('/').pop() : input;
+
+        try {
+            this.showLoading(true);
+            this.setResolveButtonState(true);
+
+            const response = await fetch(`${this.apiUrl}/${shortCode}/stats`);
+            if (!response.ok) {
+                throw new Error('URL not found or expired');
+            }
+
+            const data = await response.json();
+            this.resolvedUrlInput.value = data.originalUrl;
+            this.resolveResultSection.classList.remove('hidden');
+            this.showToast('URL resolved successfully!', 'success');
+        } catch (error) {
+            this.showToast('Failed to resolve URL', 'error');
+        } finally {
+            this.showLoading(false);
+            this.setResolveButtonState(false);
+        }
+    }
+
     displayResult(data) {
         this.shortUrlInput.value = data.shortUrl;
         this.originalUrlResult.value = data.originalUrl;
@@ -214,6 +263,15 @@ class URLShortenerApp {
         }
     }
 
+    copyResolvedToClipboard() {
+        navigator.clipboard.writeText(this.resolvedUrlInput.value);
+        this.showToast('Copied to clipboard!', 'success');
+    }
+
+    visitResolvedUrl() {
+        window.open(this.resolvedUrlInput.value, '_blank');
+    }
+
     resetForm() {
         this.shortenForm.reset();
         this.resultSection.classList.add('hidden');
@@ -244,6 +302,16 @@ class URLShortenerApp {
         } else {
             this.shortenBtn.disabled = false;
             this.shortenBtn.innerHTML = '<i class="fas fa-compress-arrows-alt"></i> <span>Shorten URL</span>';
+        }
+    }
+
+    setResolveButtonState(loading) {
+        if (loading) {
+            this.resolveBtn.disabled = true;
+            this.resolveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Resolving...</span>';
+        } else {
+            this.resolveBtn.disabled = false;
+            this.resolveBtn.innerHTML = '<i class="fas fa-search"></i> <span>Resolve URL</span>';
         }
     }
 

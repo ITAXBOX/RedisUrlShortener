@@ -61,6 +61,61 @@
                     </form>
                 </div>
 
+                <!-- URL Resolver Card -->
+                <div class="shortener-card">
+                    <h3 style="color: #667eea; font-size: 1.5rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-search"></i>
+                        Resolve Short URL
+                    </h3>
+                    <p style="color: #666; margin-bottom: 2rem;">Enter a short code or full short URL to see where it leads</p>
+
+                    <form id="resolveForm" class="shortener-form">
+                        <div class="form-group">
+                            <div class="input-wrapper">
+                                <i class="fas fa-link input-icon"></i>
+                                <input type="text" id="resolveInput" placeholder="Enter short code (e.g., abc123) or full URL..." required>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <div></div> <!-- Empty div for spacing -->
+                            <button type="submit" class="btn-secondary" id="resolveBtn">
+                                <i class="fas fa-search"></i>
+                                <span>Resolve URL</span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Resolve Result Section -->
+                    <div id="resolveResultSection" class="resolve-result-section hidden" style="margin-top: 2rem;">
+                        <div class="result-header" style="border-bottom: 1px solid #e0e0e0; padding-bottom: 1rem; margin-bottom: 1.5rem;">
+                            <h4 style="color: #667eea; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-external-link-alt"></i>
+                                Resolved URL
+                            </h4>
+                        </div>
+                        <div class="result-content">
+                            <div class="url-result">
+                                <label style="font-weight: 500; color: #555; font-size: 0.9rem; margin-bottom: 0.5rem; display: block;">Original URL:</label>
+                                <div class="url-display">
+                                    <input type="text" id="resolvedUrl" readonly style="background: #f8f9fa;">
+                                    <button id="copyResolvedBtn" class="copy-btn" title="Copy to clipboard">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="result-actions" style="margin-top: 1.5rem;">
+                                <button id="visitResolvedBtn" class="btn-primary">
+                                    <i class="fas fa-external-link-alt"></i> Visit URL
+                                </button>
+                                <button id="resolveStatsBtn" class="btn-secondary">
+                                    <i class="fas fa-chart-line"></i> View Analytics
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Result Section -->
                 <div id="resultSection" class="result-section hidden">
                     <div class="result-card">
