@@ -1,5 +1,7 @@
 package itawi.url_shortener.service;
 
+import itawi.url_shortener.builder.ShortenResponseBuilder;
+import itawi.url_shortener.builder.UrlStatsResponseBuilder;
 import itawi.url_shortener.dto.Request.ShortenRequest;
 import itawi.url_shortener.dto.Response.ShortenResponse;
 import itawi.url_shortener.dto.Response.UrlStatsResponse;
@@ -34,7 +36,7 @@ public class UrlShortenerService {
 
         String shortCode = generateShortCode(request);
         storeUrl(shortCode, request);
-        return new ShortenResponse(buildShortUrl(shortCode), request.url(), 0L);
+        return ShortenResponseBuilder.buildShortenResponse(buildShortUrl(shortCode), request.url(), 0L);
     }
 
     public String resolveUrl(String shortCode) {
@@ -63,19 +65,15 @@ public class UrlShortenerService {
         String createdAt = ops.get(CREATED_AT_KEY_PREFIX + shortCode);
         Long accessCount = accessCountStr != null ? Long.parseLong(accessCountStr) : 0L;
 
-        long ttl = redisTemplate.getExpire(URL_KEY_PREFIX + shortCode);
-        String expiresAt = ttl > 0 ?
-                LocalDateTime.now().plusSeconds(ttl).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) :
-                "Never";
+        Long ttl = redisTemplate.getExpire(URL_KEY_PREFIX + shortCode);
 
-        return UrlStatsResponse.builder()
-                .shortCode(shortCode)
-                .originalUrl(originalUrl)
-                .shortUrl(buildShortUrl(shortCode))
-                .accessCount(accessCount)
-                .createdAt(createdAt)
-                .expiresAt(expiresAt)
-                .build();
+        return UrlStatsResponseBuilder.buildUrlStatsResponse(
+                shortCode,
+                originalUrl,
+                buildShortUrl(shortCode),
+                accessCount,
+                createdAt,
+                ttl);
     }
 
     private String generateShortCode(ShortenRequest request) {

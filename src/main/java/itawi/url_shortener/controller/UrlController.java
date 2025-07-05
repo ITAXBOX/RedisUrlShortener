@@ -28,7 +28,7 @@ public class UrlController {
     private final UrlShortenerService urlService;
 
     @PostMapping
-    @RateLimit
+    @RateLimit(100) // Increased from default 10 to 100 requests per minute for development
     @Operation(summary = "Shorten a URL", description = "Shortens a given URL and returns the shortened URL details.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "URL shortened successfully",
@@ -54,7 +54,7 @@ public class UrlController {
     }
 
     @GetMapping("/{shortCode}/stats")
-    @RateLimit
+    @RateLimit(200) // Increased from default to 200 requests per minute for stats
     @Operation(summary = "Get URL statistics", description = "Get statistics for a shortened URL without incrementing access count.")
     public ResponseEntity<UrlStatsResponse> getUrlStats(@PathVariable String shortCode) {
         return ResponseEntity.ok(urlService.getUrlStats(shortCode));
