@@ -185,16 +185,26 @@ class URLShortenerApp {
             this.setResolveButtonState(true);
 
             const response = await fetch(`${this.apiUrl}/${shortCode}/stats`);
+
             if (!response.ok) {
-                throw new Error('URL not found or expired');
+                if (response.status === 404) {
+                    throw new Error(`Short code "${shortCode}" not found or has expired`);
+                } else if (response.status === 429) {
+                    throw new Error('Rate limit exceeded. Please try again later');
+                } else {
+                    throw new Error(`Server error: ${response.status}`);
+                }
             }
 
             const data = await response.json();
             this.resolvedUrlInput.value = data.originalUrl;
             this.resolveResultSection.classList.remove('hidden');
             this.showToast('URL resolved successfully!', 'success');
+
         } catch (error) {
-            this.showToast('Failed to resolve URL', 'error');
+            console.error('Error resolving URL:', error);
+            this.showToast(error.message || 'Failed to resolve URL', 'error');
+            this.resolveResultSection.classList.add('hidden'); // Hide result section on error
         } finally {
             this.showLoading(false);
             this.setResolveButtonState(false);
